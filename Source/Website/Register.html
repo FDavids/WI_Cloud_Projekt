@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="description" content="">
+    <meta name="author" content="">   
+
+    <title>MiniCloud</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="Styles/bootstrap/bootstrap.min.css" rel="stylesheet">   
+	<link href="Styles/bootstrap/starter-template.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+		  <a href="index.html">
+			<img class="navbar-brand"  src="Logo300x102.gif" alt="MiniCloud" width="150" height="51">
+		  </a>          
+        </div>        
+      </div>
+    </nav>
+
+    <div class="container">
+
+		 <div class="container">
+			<h1>Registrierung</h1>
+			<p class="lead">Bitte füllen Sie das Formular aus um sich für die MiniCloud zu registrieren</p>
+		 </div>
+		  
+		 <div class="container">
+			<div class="col-md-12">        
+				<form  class="form-horizontal">            
+					<div  class="form-group">                
+						<label  for="userName"  class="control-label col-sm-2">Benutzername</label>
+						<div  class="col-sm-10">                    
+							<input  type="text"  class="form-control"  placeholder="Username"  id="userName">                    
+						</div>
+					</div>
+					
+					<div  class="form-group">                
+						<label  for="firstName"  class="control-label col-sm-2">Vorname</label>
+						<div  class="col-sm-10">                    
+							<input  type="text"  class="form-control"  placeholder="Firstname"  id="firstName">                    
+						</div>
+					</div>
+					
+					<div  class="form-group">                
+						<label  for="lastName"  class="control-label col-sm-2">Nachname</label>
+						<div  class="col-sm-10">                    
+							<input  type="text"  class="form-control"  placeholder="Lastname"  id="lastName">                    
+						</div>
+					</div>
+					
+					<div  class="form-group">                
+						<label  for="emailAdress"  class="control-label col-sm-2">E-Mail Adresse</label>
+						<div  class="col-sm-10">                    
+							<input  type="text"  class="form-control"  placeholder="E-Mail adress"  id="emailAdress">                    
+						</div>
+					</div>
+					
+					<div  class="form-group">                
+						<label for="repeatEmailAdress" class="control-label col-sm-2">E-Mail Adresse wiederholen</label>
+						<div  class="col-sm-10">                    
+							<input  type="text" class="form-control" placeholder="Repeat E-Mail adress" id="repeatEmailAdress" onfocusout="validateEmail()">                    
+						</div>
+					</div>			
+
+					<div class="form-group">
+						<label for="password" class="control-label col-sm-2">Passwort</label>
+						<div  class="col-sm-10">
+							<input  type="password" placeholder="Password" class="form-control" id="password">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="repeatPassword" class="control-label col-sm-2">Password wiederholen</label>
+						<div class="col-sm-10">
+							<input type="password" placeholder="Repeate password" class="form-control" id="repeatPassword" onfocusout="validatePassword">
+						</div>
+					</div>
+				   
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">                     
+							<button  class="btn btn-success"  type="submit">Registrieren</button>
+						</div>
+					</div>
+				</form>	
+			</div>
+		</div> 
+	</div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./test_files/jquery.min.js.Download"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./test_files/bootstrap.min.js.Download"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./test_files/ie10-viewport-bug-workaround.js.Download"></script>
+  
+</body>
+<script>
+
+	function validateEmail(){
+		var email = document.getElementById("emailAdress").value;
+		var emailToBeValidated = document.getElementById("repeatEmailAdress").value;
+		
+		if (email != emailToBeValidated){
+			alert("Die angegebenen E-Mail Adressen sind nicht identisch");
+			return false;
+		}
+	}
+	
+	function validatePassword(){
+		var password = document.getElementById("password").value;
+		var passwordToBeValidated = document.getElementById("repeatPassword").value;
+		
+		if (password != passwordToBeValidated){
+			alert("Die angebenen Passwörter sind nicht identisch");
+			return false;
+		}
+	}
+	
+</script>
+</html>
