@@ -40,7 +40,7 @@ namespace MiniCloud.ModelHelper.Helper
 
             foreach (var user in allDatabaseUsers)
             {
-                users.Add(new BasicUserInformation(user.UserName, user.Name));
+                users.Add(new BasicUserInformation(user.UserName, user.LastName));
             }
 
             return users;
@@ -50,7 +50,9 @@ namespace MiniCloud.ModelHelper.Helper
         {
             return new User
             {
-                Name = model.Name,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                EmailAdress = model.EmailAdress,
                 UserName = model.UserName,
                 Password = model.Password, 
             };

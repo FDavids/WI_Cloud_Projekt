@@ -42,7 +42,7 @@
 			<div class="col-md-12">        
 				<form  class="form-horizontal">            
 					<div  class="form-group">                
-						<label  for="userName"  class="control-label col-sm-2">Benutzername</label>
+						<label  for="userName"  class="control-label col-sm-2">Benutzername*</label>
 						<div  class="col-sm-10">                    
 							<input  type="text"  class="form-control"  placeholder="Username"  id="userName">                    
 						</div>
@@ -63,52 +63,45 @@
 					</div>
 					
 					<div  class="form-group">                
-						<label  for="emailAdress"  class="control-label col-sm-2">E-Mail Adresse</label>
+						<label  for="emailAdress"  class="control-label col-sm-2">E-Mail Adresse*</label>
 						<div  class="col-sm-10">                    
-							<input  type="text"  class="form-control"  placeholder="E-Mail adress"  id="emailAdress">                    
+							<input  type="email"  class="form-control"  placeholder="E-Mail adress"  id="emailAdress">                    
 						</div>
 					</div>
 					
 					<div  class="form-group">                
-						<label for="repeatEmailAdress" class="control-label col-sm-2">E-Mail Adresse wiederholen</label>
+						<label for="repeatEmailAdress" class="control-label col-sm-2">E-Mail Adresse wiederholen*</label>
 						<div  class="col-sm-10">                    
-							<input  type="text" class="form-control" placeholder="Repeat E-Mail adress" id="repeatEmailAdress" onfocusout="validateEmail()">                    
+							<input  type="email" class="form-control" placeholder="Repeat E-Mail adress" id="repeatEmailAdress" onfocusout="validateEmail()">                    
 						</div>
-					</div>			
+					</div>		
 
 					<div class="form-group">
-						<label for="password" class="control-label col-sm-2">Passwort</label>
+						<label for="password" class="control-label col-sm-2">Passwort*</label>
 						<div  class="col-sm-10">
 							<input  type="password" placeholder="Password" class="form-control" id="password">
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="repeatPassword" class="control-label col-sm-2">Password wiederholen</label>
+						<label for="repeatPassword" class="control-label col-sm-2">Password wiederholen*</label>
 						<div class="col-sm-10">
-							<input type="password" placeholder="Repeate password" class="form-control" id="repeatPassword" onfocusout="validatePassword">
+							<input type="password" placeholder="Repeat password" class="form-control" id="repeatPassword" onfocusout="validatePassword()">
 						</div>
+					</div>
+					<div>
+						<p style="color:red">Alle Felder * gekennzeichneten Felder sind Pflichtfelder</p>
 					</div>
 				   
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">                     
-							<button  class="btn btn-success"  type="submit">Registrieren</button>
+							<button  class="btn btn-success"  type="submit" onclick="sendDataToServer()">Registrieren</button>
 						</div>
 					</div>
 				</form>	
 			</div>
-		</div> 
-	</div><!-- /.container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./test_files/jquery.min.js.Download"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="./test_files/bootstrap.min.js.Download"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./test_files/ie10-viewport-bug-workaround.js.Download"></script>
+		</div> 		
+	</div><!-- /.container -->  
   
 </body>
 <script>
@@ -131,6 +124,26 @@
 			alert("Die angebenen Passwörter sind nicht identisch");
 			return false;
 		}
+	}
+	
+	function sendDataToServer(){
+		$.ajax({
+			type: 'POST',
+			contentType: 'application/json',			
+			url: 'http://localhost:5420/api/Users',
+			dataType: 'json',
+			data: formToJson(),
+			success: alert('Succes')
+		})
+	}
+	
+	function formToJson(){
+		return JSON.stringify({
+		"UserName": $('#userName').val(),
+		"FirstName" : $('#firstName').val(),
+		"LastName" : $('#lastName').val(),
+		"EmailAdress" : $('#emailAdress').val(),
+		"Password" : $('#password').val()})		
 	}
 	
 </script>

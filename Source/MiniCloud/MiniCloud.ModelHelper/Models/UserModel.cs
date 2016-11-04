@@ -22,32 +22,27 @@ namespace MiniCloud.ModelHelper.Models
 
             UserName = databaseUser.UserName;
             Password = databaseUser.Password;
-            Name = databaseUser.Name;          
+            LastName = databaseUser.LastName;
+            FirstName = databaseUser.FirstName;
+            EmailAdress = databaseUser.EmailAdress;          
         }
 
-        public UserModel(string userName, string name)
+        public UserModel(string userName, string password, string lastName, string firstName, string emailAdress)
         {
             UserName = userName;
-            Name = name;
+            Password = password;
+            LastName = lastName;
+            FirstName = firstName;
+            EmailAdress = emailAdress;
         }
 
-        [Required]
-        [MaxLength(250)]
-        [Display(Name = "loginName")]
-        [JsonProperty(PropertyName = "loginName")]
-        [UniqueUserName(ErrorMessage = "This user has already been added to the database")]
+       
+       [UniqueUserName(ErrorMessage = "This user has already been added to the database")]
         public string UserName { get; set; }
 
-        [Required]
-        [MaxLength(250)]
-        [Display(Name = "passwort")]
-        [JsonProperty(PropertyName = "passwort")]
-        public string Password { get; set; }
-
-        [Required]
-        [MaxLength(250)]
-        [Display(Name = "Name")]
-        [JsonProperty(PropertyName = "Name")]
-        public string Name { get; set; }
+        public string Password { get; set; }       
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string EmailAdress { get; set; }
     }
 }
