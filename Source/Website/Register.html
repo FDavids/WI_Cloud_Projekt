@@ -11,10 +11,25 @@
     <!-- Bootstrap core CSS -->
     <link href="Styles/bootstrap/bootstrap.min.css" rel="stylesheet">   
 	<link href="Styles/bootstrap/starter-template.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	<script>
+		$(document).ready(function(){
+			$("button").click(function(){
+				$.post("http://localhost:5420/api/Users",
+				{
+					UserName: $('#userName').val(),
+					Password: $('#password').val(),
+					LastName: $('#lastName').val(),
+					FirstName: $('#firstName').val(),
+					EmailAdress: $('#emailAdress').val()
+				})
+			});
+		});
+	</script>	
   </head>
 
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -72,7 +87,7 @@
 					<div  class="form-group">                
 						<label for="repeatEmailAdress" class="control-label col-sm-2">E-Mail Adresse wiederholen*</label>
 						<div  class="col-sm-10">                    
-							<input  type="email" class="form-control" placeholder="Repeat E-Mail adress" id="repeatEmailAdress" onfocusout="validateEmail()">                    
+							<input  type="email" class="form-control" placeholder="Repeat E-Mail adress" id="repeatEmailAdress">                    
 						</div>
 					</div>		
 
@@ -86,7 +101,7 @@
 					<div class="form-group">
 						<label for="repeatPassword" class="control-label col-sm-2">Password wiederholen*</label>
 						<div class="col-sm-10">
-							<input type="password" placeholder="Repeat password" class="form-control" id="repeatPassword" onfocusout="validatePassword()">
+							<input type="password" placeholder="Repeat password" class="form-control" id="repeatPassword">
 						</div>
 					</div>
 					<div>
@@ -95,7 +110,7 @@
 				   
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">                     
-							<button  class="btn btn-success"  type="submit" onclick="sendDataToServer()">Registrieren</button>
+							<button  class="btn btn-success"  type="submit">Registrieren</button>
 						</div>
 					</div>
 				</form>	
@@ -104,47 +119,4 @@
 	</div><!-- /.container -->  
   
 </body>
-<script>
-
-	function validateEmail(){
-		var email = document.getElementById("emailAdress").value;
-		var emailToBeValidated = document.getElementById("repeatEmailAdress").value;
-		
-		if (email != emailToBeValidated){
-			alert("Die angegebenen E-Mail Adressen sind nicht identisch");
-			return false;
-		}
-	}
-	
-	function validatePassword(){
-		var password = document.getElementById("password").value;
-		var passwordToBeValidated = document.getElementById("repeatPassword").value;
-		
-		if (password != passwordToBeValidated){
-			alert("Die angebenen Passwörter sind nicht identisch");
-			return false;
-		}
-	}
-	
-	function sendDataToServer(){
-		$.ajax({
-			type: 'POST',
-			contentType: 'application/json',			
-			url: 'http://localhost:5420/api/Users',
-			dataType: 'json',
-			data: formToJson(),
-			success: alert('Succes')
-		})
-	}
-	
-	function formToJson(){
-		return JSON.stringify({
-		"UserName": $('#userName').val(),
-		"FirstName" : $('#firstName').val(),
-		"LastName" : $('#lastName').val(),
-		"EmailAdress" : $('#emailAdress').val(),
-		"Password" : $('#password').val()})		
-	}
-	
-</script>
 </html>
