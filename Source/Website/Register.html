@@ -14,19 +14,36 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	
 	<script>
-		$(document).ready(function(){
-			$("button").click(function(){
-				$.post("http://localhost:5420/api/Users",
-				{
-					UserName: $('#userName').val(),
-					Password: $('#password').val(),
-					LastName: $('#lastName').val(),
-					FirstName: $('#firstName').val(),
-					EmailAdress: $('#emailAdress').val()
-				})
-			});
+		$.fn.serializeObject = function()
+		{
+		var o = {};
+		var a = this.serializeArray();
+		$.each(a, function() {
+			if (o[this.name] !== undefined) {
+				if (!o[this.name].push) {
+					o[this.name] = [o[this.name]];
+				}
+				o[this.name].push(this.value || '');
+			} else {
+				o[this.name] = this.value || '';
+			}
 		});
-	</script>	
+		return o;
+		};
+		
+		
+		function register(){		
+			$.ajax({
+				type:'POST',
+				url: 'http://localhost:5420/api/Users',
+				data: JSON.stringify($('form').serializeObject()),				
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',			
+				success: function(data){alert(data);},
+				failure: function(errMsg){alert(errMsg);				}
+			});
+		}
+	</script>		
   </head>
 
   <body>
@@ -55,62 +72,48 @@
 		  
 		 <div class="container">
 			<div class="col-md-12">        
-				<form  class="form-horizontal">            
+				<form  id="registerForm" class="form-horizontal">            
 					<div  class="form-group">                
 						<label  for="userName"  class="control-label col-sm-2">Benutzername*</label>
 						<div  class="col-sm-10">                    
-							<input  type="text"  class="form-control"  placeholder="Username"  id="userName">                    
+							<input type="text" class="form-control" placeholder="Username" id="userName" name="userName">                    
 						</div>
 					</div>
 					
 					<div  class="form-group">                
 						<label  for="firstName"  class="control-label col-sm-2">Vorname</label>
 						<div  class="col-sm-10">                    
-							<input  type="text"  class="form-control"  placeholder="Firstname"  id="firstName">                    
+							<input type="text" class="form-control" placeholder="Firstname" id="firstName" name="firstName">                    
 						</div>
 					</div>
 					
 					<div  class="form-group">                
 						<label  for="lastName"  class="control-label col-sm-2">Nachname</label>
 						<div  class="col-sm-10">                    
-							<input  type="text"  class="form-control"  placeholder="Lastname"  id="lastName">                    
+							<input type="text" class="form-control" placeholder="Lastname" id="lastName" name="lastName">                    
 						</div>
 					</div>
 					
 					<div  class="form-group">                
 						<label  for="emailAdress"  class="control-label col-sm-2">E-Mail Adresse*</label>
 						<div  class="col-sm-10">                    
-							<input  type="email"  class="form-control"  placeholder="E-Mail adress"  id="emailAdress">                    
+							<input type="email" class="form-control" placeholder="E-Mail adress" id="emailAdress" name="emailAdress">                    
 						</div>
 					</div>
-					
-					<div  class="form-group">                
-						<label for="repeatEmailAdress" class="control-label col-sm-2">E-Mail Adresse wiederholen*</label>
-						<div  class="col-sm-10">                    
-							<input  type="email" class="form-control" placeholder="Repeat E-Mail adress" id="repeatEmailAdress">                    
-						</div>
-					</div>		
-
 					<div class="form-group">
 						<label for="password" class="control-label col-sm-2">Passwort*</label>
 						<div  class="col-sm-10">
-							<input  type="password" placeholder="Password" class="form-control" id="password">
+							<input type="password" placeholder="Password" class="form-control" id="password" name="password">
 						</div>
-					</div>
+					</div>				
 					
-					<div class="form-group">
-						<label for="repeatPassword" class="control-label col-sm-2">Password wiederholen*</label>
-						<div class="col-sm-10">
-							<input type="password" placeholder="Repeat password" class="form-control" id="repeatPassword">
-						</div>
-					</div>
 					<div>
 						<p style="color:red">Alle Felder * gekennzeichneten Felder sind Pflichtfelder</p>
 					</div>
 				   
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">                     
-							<button  class="btn btn-success"  type="submit">Registrieren</button>
+							<button  class="btn btn-success"  type="submit" onclick=register()>Registrieren</button>
 						</div>
 					</div>
 				</form>	
