@@ -14,11 +14,20 @@ namespace MiniCloud.DataModel
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Files = new HashSet<File>();
+        }
+    
         public int Id { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string EmailAdress { get; set; }
         public string Password { get; set; }
         public string UserName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<File> Files { get; set; }
     }
 }

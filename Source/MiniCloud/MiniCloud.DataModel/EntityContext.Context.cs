@@ -26,5 +26,6 @@ namespace MiniCloud.DataModel
         }
     
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<File> Files { get; set; }
     }
 }
