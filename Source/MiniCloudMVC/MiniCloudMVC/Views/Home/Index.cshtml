@@ -1,0 +1,61 @@
+﻿@model List<MiniCloudMVC.Models.FileModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div> 
+    <h1>Mini Cloud</h1>
+@if (Request.IsAuthenticated)
+{
+    {
+        ViewBag.Title = "Projects";
+    }
+
+    <div>
+        @if (TempData["success"] != null)
+        {
+            <div class="alert alert-success">@TempData["success"]</div>
+        }
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["error"]</div>
+        }
+    </div>
+
+    using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file" />
+        <button type="submit">upload</button>
+            
+    }
+
+        <table class="table">
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        <a href="@item.FileLink">Download</a> 
+                        @*<a href="@Url.Action("Details", new { id = item.ProjectId })"><i class="fa fa-list fa-lg" title="Details"></i></a> |
+                        <a href='@Url.Action("Create", "ProjectEmployee", new { id = item.ProjectId, IsEmployee = false}, Request.Url.Scheme)'>Assign Employee</a>*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+        }
+        else
+        {
+    <p class="lead">Please Log In to upload and download your files.</p>
+}
+</div>
